@@ -19,7 +19,11 @@ RUN apt-get update && apt-get install -y \
     nginx \
     tzdata \
     dos2unix \
-    git 
+    git \
+    nodejs \
+    npm \
+    build-essential \
+    ant
 
 RUN apt-get clean autoclean && apt-get autoremove -y
 
