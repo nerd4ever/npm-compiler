@@ -1,0 +1,12 @@
+version: "2.0"
+services:
+  moodle:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_ENV: dev
+    container_name: lms-moodle
+    ports:
+      - "8081:80"
