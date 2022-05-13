@@ -1,12 +1,14 @@
 version: "2.0"
 services:
-  moodle:
+  npm:
     restart: always
     build:
       context: .
       dockerfile: Dockerfile
       args:
         BUILD_ENV: dev
-    container_name: lms-moodle
+    container_name: npm-compiler
+    volumes: 
+      - ./test/mamute-ui:/workspace/mamute-ui
     ports:
       - "8081:80"

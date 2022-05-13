@@ -4,6 +4,7 @@ LABEL maintainer="Nerd4ever Desenvolvimento Tecnlógico e Inovação Ltda <repo@
 
 ENV TZ=UTC
 ARG DEBIAN_FRONTEND=noninteractive
+ENV export NVM_DIR ~/.nvm
 
 RUN apt-get update && apt-get install -y \
     gnupg2  \
@@ -20,18 +21,21 @@ RUN apt-get update && apt-get install -y \
     tzdata \
     dos2unix \
     git \
-    nodejs \
-    npm \
     build-essential \
-    ant
+    ant \
+    nodejs \
+    npm 
+
 
 RUN apt-get clean autoclean && apt-get autoremove -y
 
 RUN mkdir -p /workspace
-
+    
 WORKDIR /workspace
 
 VOLUME ["/workspace"]
-EXPOSE 80
 
-CMD ["tail","-f", "/var/log/lastlog"]
+COPY entrypoint.sh /entrypoint
+RUN dos2unix /entrypoint && chmod +x /entrypoint
+
+CMD ["/entrypoint", "daemon"]
